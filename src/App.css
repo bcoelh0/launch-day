@@ -31,3 +31,50 @@
     transform: rotate(360deg);
   }
 }
+
+* {
+  font-family: "Open Sans", sans-serif;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.item {
+  width: 600px;
+  margin: auto;
+  align-items: flex-start;
+  flex-direction: row;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.center-middle {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.image {
+  object-fit: cover;
+
+  width: 200px;
+  height: 200px;
+}
