@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Launch from "./launch";
 import styled from "styled-components";
 
@@ -23,24 +23,26 @@ const ListLaunches = () => {
   const [loading, setLoading] = useState(true);
   const [launches, setLaunches] = useState([]);
 
-  fetch("https://launchlibrary.net/1.4/launch/next/25")
-    .then(response => response.json())
-    .then(data => {
-      setLaunches(data.launches);
-      setLoading(false);
-    });
+  useEffect(() => {
+    fetch("https://launchlibrary.net/1.4/launch/next/25")
+      .then(response => response.json())
+      .then(data => {
+        setLaunches(data.launches);
+        setLoading(false);
+      });
+  }, [setLaunches, setLoading]);
 
   return (
     <div>
       <MainTitle>Upcoming Launches</MainTitle>
       {loading ? (
         <Loading src="https://cdn.dribbble.com/users/475723/screenshots/2666648/loading-animation.gif" />
-      ) : launches.length == 0 ? (
+      ) : launches.length === 0 ? (
         <p>No Launches available... :/</p>
       ) : (
         launches.map(launch => (
-          <div>
-            <Launch key={launch.id} data={launch} />
+          <div key={launch.id}>
+            <Launch data={launch} />
             <LaunchDivider />
           </div>
         ))

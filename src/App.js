@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import ListLaunches from "./components/list-launches";
 import "./App.css";
 import styled from "styled-components";

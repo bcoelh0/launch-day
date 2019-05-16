@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import LaunchImage from "./launch-image";
 import LaunchInfo from "./launch-info";
 import styled from "styled-components";

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 
 const LaunchImageContent = styled.img`
@@ -25,7 +25,8 @@ const getImage = imagePath => {
 };
 
 const LaunchImage = props => {
-  return <LaunchImageContent src={getImage(props.imagePath)} />;
+  const src = useMemo(() => getImage(props.imagePath), [props.imagePath]);
+  return <LaunchImageContent src={src} />;
 };
 
 export default LaunchImage;
