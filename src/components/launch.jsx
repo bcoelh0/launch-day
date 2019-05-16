@@ -27,23 +27,21 @@ const Column = styled.div`
   flex: 1;
 `;
 
-class Launch extends Component {
-  render() {
-    const launch = this.props.data;
+const Launch = props => {
+  const launch = props.data;
 
-    return (
-      <Item>
-        <Row>
-          <Column>
-            <LaunchImage imagePath={launch.rocket.imageURL} />
-          </Column>
-          <Column>
-            <LaunchInfo launch={launch} />
-          </Column>
-        </Row>
-      </Item>
-    );
-  }
-}
+  return (
+    <Item>
+      <Row>
+        <Column>
+          <LaunchImage imagePath={launch.rocket.imageURL} />
+        </Column>
+        <Column>
+          <LaunchInfo launch={launch} />
+        </Column>
+      </Row>
+    </Item>
+  );
+};
 
 export default Launch;

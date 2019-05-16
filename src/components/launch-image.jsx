@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 
 const LaunchImageContent = styled.img`
@@ -7,27 +7,25 @@ const LaunchImageContent = styled.img`
   height: 200px;
 `;
 
-class LaunchImage extends Component {
-  imageThumbnail = imagePath => {
-    let underscoreIndex = imagePath.lastIndexOf("_");
-    let dotIndex = imagePath.lastIndexOf(".");
-    let strToReplace = imagePath.substring(underscoreIndex, dotIndex);
-    return imagePath.replace(strToReplace, "_320");
-  };
+const imageThumbnail = imagePath => {
+  let underscoreIndex = imagePath.lastIndexOf("_");
+  let dotIndex = imagePath.lastIndexOf(".");
+  let strToReplace = imagePath.substring(underscoreIndex, dotIndex);
+  return imagePath.replace(strToReplace, "_320");
+};
 
-  getImage = imagePath => {
-    if (imagePath.includes("placeholder")) {
-      return (
-        "https://loremflickr.com/320/320/hubble-telescope?l=" + Math.random()
-      );
-    } else {
-      return this.imageThumbnail(imagePath);
-    }
-  };
-
-  render() {
-    return <LaunchImageContent src={this.getImage(this.props.imagePath)} />;
+const getImage = imagePath => {
+  if (imagePath.includes("placeholder")) {
+    return (
+      "https://loremflickr.com/320/320/hubble-telescope?l=" + Math.random()
+    );
+  } else {
+    return imageThumbnail(imagePath);
   }
-}
+};
+
+const LaunchImage = props => {
+  return <LaunchImageContent src={getImage(props.imagePath)} />;
+};
 
 export default LaunchImage;

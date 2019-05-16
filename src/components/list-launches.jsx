@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Launch from "./launch";
 import styled from "styled-components";
 
@@ -19,37 +19,34 @@ const MainTitle = styled.h1`
   text-align: center;
 `;
 
-class ListLaunches extends Component {
-  state = {
-    launches: [],
-    loading: true
-  };
+const ListLaunches = () => {
+  const [loading, setLoading] = useState(true);
+  const [launches, setLaunches] = useState([]);
 
-  componentDidMount() {
-    fetch("https://launchlibrary.net/1.4/launch/next/25")
-      .then(response => response.json())
-      .then(data => this.setState({ launches: data.launches, loading: false }));
-  }
+  fetch("https://launchlibrary.net/1.4/launch/next/25")
+    .then(response => response.json())
+    .then(data => {
+      setLaunches(data.launches);
+      setLoading(false);
+    });
 
-  render() {
-    return (
-      <div>
-        <MainTitle>Upcoming Launches</MainTitle>
-        {this.state.loading ? (
-          <Loading src="https://cdn.dribbble.com/users/475723/screenshots/2666648/loading-animation.gif" />
-        ) : this.state.launches.length == 0 ? (
-          <p>No Launches available... :/</p>
-        ) : (
-          this.state.launches.map(launch => (
-            <div>
-              <Launch key={launch.id} data={launch} />
-              <LaunchDivider />
-            </div>
-          ))
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div>
+      <MainTitle>Upcoming Launches</MainTitle>
+      {loading ? (
+        <Loading src="https://cdn.dribbble.com/users/475723/screenshots/2666648/loading-animation.gif" />
+      ) : launches.length == 0 ? (
+        <p>No Launches available... :/</p>
+      ) : (
+        launches.map(launch => (
+          <div>
+            <Launch key={launch.id} data={launch} />
+            <LaunchDivider />
+          </div>
+        ))
+      )}
+    </div>
+  );
+};
 
 export default ListLaunches;
