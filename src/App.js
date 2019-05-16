@@ -2,12 +2,19 @@ import React from "react";
 import logo from "./logo.svg";
 import ListLaunches from "./components/list-launches";
 import "./App.css";
+import styled from "styled-components";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+`;
 
 function App() {
   return (
-    <div className="container">
+    <Container>
       <ListLaunches />
-    </div>
+    </Container>
   );
 }
 

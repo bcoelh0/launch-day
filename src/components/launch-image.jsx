@@ -1,4 +1,11 @@
 import React, { Component } from "react";
+import styled from "styled-components";
+
+const LaunchImageContent = styled.img`
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+`;
 
 class LaunchImage extends Component {
   imageThumbnail = imagePath => {
@@ -19,7 +26,7 @@ class LaunchImage extends Component {
   };
 
   render() {
-    return <img className="image" src={this.getImage(this.props.imagePath)} />;
+    return <LaunchImageContent src={this.getImage(this.props.imagePath)} />;
   }
 }
 
