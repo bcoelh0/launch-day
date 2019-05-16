@@ -1,11 +1,7 @@
 import React, { Component } from "react";
+import LaunchImage from "./launch-image";
 
 class Launch extends Component {
-  state = {
-    launch: this.props.data,
-    counter: 0
-  };
-
   formatDate = date => {
     return date.substring(0, date.length - 7);
   };
@@ -22,47 +18,48 @@ class Launch extends Component {
     }
   };
 
-  imageThumbnail = imagePath => {
-    let underscoreIndex = imagePath.lastIndexOf("_");
-    let dotIndex = imagePath.lastIndexOf(".");
-    let strToReplace = imagePath.substring(underscoreIndex, dotIndex);
-    return imagePath.replace(strToReplace, "_320");
-  };
-
-  getImage = imagePath => {
-    if (imagePath.includes("placeholder")) {
-      return (
-        "https://loremflickr.com/320/320/hubble-telescope?l=" + Math.random()
-      );
-    } else {
-      return this.imageThumbnail(imagePath);
-    }
-  };
-
   render() {
-    const { launch } = this.state;
-    let i = Math.random();
+    const launch = this.props.data;
+
     return (
       <div className="item">
-        <div class="row">
-          <div class="column">
-            <img
-              className="image"
-              src={this.getImage(launch.rocket.imageURL)}
-            />
+        <div className="row">
+          <div className="column">
+            <LaunchImage imagePath={launch.rocket.imageURL} />
           </div>
-          <div class="column center-middle">
-            <h3>{launch.name}</h3>
-            <p>{this.launchDate(launch.windowstart, launch.windowend)}</p>
-            <small>Location: {launch.location.name}</small>
-            <br />
-            {launch.location.pads[0].mapURL.length > 0 ? (
-              <a href={launch.location.pads[0].mapURL} target="blank">
-                <button>Get There</button>
-              </a>
-            ) : (
-              <small>No public access :(</small>
-            )}
+          <div className="column center-middle">
+            <div className="launch-info">
+              <h3 className="launch-name">{launch.name}</h3>
+              <small>
+                {launch.rocket.agencies !== null &&
+                launch.rocket.agencies[0] !== undefined ? (
+                  <a href={launch.rocket.agencies[0].wikiURL} target="blank">
+                    {launch.rocket.agencies[0].name}
+                  </a>
+                ) : (
+                  ""
+                )}
+              </small>
+              <p>{this.launchDate(launch.windowstart, launch.windowend)}</p>
+              <small>Location: {launch.location.name}</small>
+              <br />
+              <br />
+              {launch.location.pads[0].mapURL.length > 0 ? (
+                <a href={launch.location.pads[0].mapURL} target="blank">
+                  <button className="btn">Get There</button>
+                </a>
+              ) : (
+                <small>No public access :(</small>
+              )}
+              &nbsp;&nbsp;
+              {launch.rocket.wikiURL.length > 0 ? (
+                <a href={launch.rocket.wikiURL} target="blank">
+                  <button className="btn-secondary">Rocket Info</button>
+                </a>
+              ) : (
+                <small>No rocket info :(</small>
+              )}
+            </div>
           </div>
         </div>
       </div>
